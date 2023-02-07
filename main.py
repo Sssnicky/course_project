@@ -31,14 +31,12 @@ class VkToYa:
                              params={'path': 'netology'})
             disk_file_path = 'netology/{}'.format(self.get_photos()['response']
                                                   ['items'][counter]['likes']['count'])
-
             data = self.get_photos()['response']['items'][counter]['sizes'][-1]['url']
             response = requests.post(url="https://cloud-api.yandex.net/v1/disk/resources/upload",
                                      headers=self.get_headers(),
                                      params={'path': disk_file_path,
                                              'url': data})
-            json_dict['file_name'] = '{}.jpg'.format(self.get_photos()['response']['items']
-                                                     [counter]['likes']['count'])
+            json_dict['file_name'] = '{}.jpg'.format(self.get_photos()['response']['items'][counter]['likes']['count'])
             json_dict['size'] = self.get_photos()['response']['items'][counter]['sizes'][-1]['type']
             json_data.append(json_dict)
             json_dict = {}
@@ -71,5 +69,4 @@ class VkToYa:
 if __name__ == '__main__':
     uploader = VkToYa()
     pprint(uploader.upload())
-    # pprint(uploader.get_photos())
 
